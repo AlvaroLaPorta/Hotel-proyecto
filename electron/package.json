@@ -1,0 +1,51 @@
+{
+  "name": "hotel-karim",
+  "version": "1.0.0",
+  "description": "Sistema de gestión de reservas — Hotel Karim",
+  "main": "main.js",
+  "author": "Hotel Karim",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win",
+    "package": "npm run dist"
+  },
+  "build": {
+    "appId": "com.hotelkarim.app",
+    "productName": "Hotel Karim",
+    "copyright": "Copyright © 2026 Hotel Karim",
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "signAndEditExecutable": false
+    },
+    "portable": {
+      "artifactName": "Hotel-Karim-${version}.exe"
+    },
+    "files": [
+      "main.js"
+    ],
+    "extraResources": [
+      {
+        "from": "dist/flask-server/",
+        "to": "flask-server",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "directories": {
+      "output": "installer-output"
+    }
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.0.0"
+  }
+}

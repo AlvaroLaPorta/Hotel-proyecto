@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏨 Hotel Interactivo — Plano de Planta</title>
+    <meta name="description" content="Plano interactivo del hotel con visualización de habitaciones y estado">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0f1219;
+            color: #e2e8f0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+        }
+
+        /* ── Side Panel ─────────────────────────────────── */
+        .side-panel {
+            width: 300px;
+            min-width: 300px;
+            background: linear-gradient(180deg, #141824 0%, #111620 100%);
+            border-right: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            flex-direction: column;
+            padding: 24px 0;
+            z-index: 10;
+        }
+
+        .panel-header {
+            padding: 0 24px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .panel-header h1 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .panel-header h1 .icon-hotel {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #d4a853, #c4943f);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .status-pills {
+            display: flex;
+            gap: 6px;
+            margin-top: 14px;
+            flex-wrap: wrap;
+        }
+
+        .pill {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .pill-green { background: rgba(72,187,120,0.15); color: #48bb78; border: 1px solid rgba(72,187,120,0.3); }
+        .pill-orange { background: rgba(237,137,54,0.15); color: #ed8936; border: 1px solid rgba(237,137,54,0.3); }
+        .pill-purple { background: rgba(159,122,234,0.15); color: #9f7aea; border: 1px solid rgba(159,122,234,0.3); }
+
+        /* Room detail section */
+        .room-detail {
+            padding: 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .room-detail-placeholder {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #4a5568;
+            text-align: center;
+            gap: 12px;
+        }
+
+        .room-detail-placeholder .click-icon {
+            font-size: 48px;
+            opacity: 0.3;
+        }
+
+        .room-detail-placeholder p {
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .room-detail-content {
+            display: none;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .room-detail-content.active {
+            display: flex;
+        }
+
+        .detail-icon {
+            font-size: 52px;
+            text-align: center;
+            padding: 16px 0;
+        }
+
+        .detail-name {
+            font-size: 22px;
+            font-weight: 700;
+            text-align: center;
+            color: #fff;
+        }
+
+        .detail-type {
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 16px;
+            border-radius: 20px;
+            align-self: center;
+        }
+
+        .detail-type.guest {
+            background: rgba(72,187,120,0.12);
+            color: #48bb78;
+        }
+
+        .detail-type.utility {
+            background: rgba(237,137,54,0.12);
+            color: #ed8936;
+        }
+
+        .detail-divider {
+            height: 1px;
+            background: rgba(255,255,255,0.06);
+            margin: 4px 0;
+        }
+
+        .detail-status {
+            text-align: center;
+            font-size: 14px;
+            color: #8899aa;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            font-size: 13px;
+        }
+
+        .detail-row .label {
+            color: #5a6a7a;
+        }
+
+        .detail-row .value {
+            color: #e2e8f0;
+            font-weight: 500;
+        }
+
+        /* ── Main content ──────────────────────────────── */
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            background:
+                radial-gradient(ellipse at 30% 50%, rgba(99,179,237,0.03) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 30%, rgba(159,122,234,0.02) 0%, transparent 60%),
+                #0f1219;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* ── Floor Plan ────────────────────────────────── */
+        .floor-plan-wrapper {
+            position: relative;
+            transform: scale(1);
+            transition: transform 0.3s ease;
+        }
+
+        .floor-plan {
+            position: relative;
+            border: 4px solid rgba(255,255,255, 0.85);
+            border-radius: 14px;
+            background: #1a2035;
+            box-shadow:
+                0 0 60px rgba(255,255,255,0.04),
+                0 0 120px rgba(99,179,237,0.03),
+                inset 0 0 80px rgba(0,0,0,0.3);
+            padding: 0;
+            overflow: visible;
+        }
+
+        .rooms-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .room-row {
+            display: flex;
+            gap: 0;
+        }
+
+        .corridor {
+            background: linear-gradient(90deg, #161c2e 0%, #1a2238 50%, #161c2e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 65px;
+            position: relative;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .corridor-label {
+            font-size: 11px;
+            color: #3a4560;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        /* ── Room ──────────────────────────────────────── */
+        .room {
+            width: 160px;
+            height: 155px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255,255,255,0.04);
+            overflow: visible;
+        }
+
+        .room.guest {
+            background: linear-gradient(145deg, #1a2540 0%, #162035 100%);
+        }
+
+        .room.utility {
+            background: linear-gradient(145deg, #231a35 0%, #1d1530 100%);
+        }
+
+        .room:hover {
+            z-index: 5;
+            border-color: rgba(99,179,237,0.4);
+            box-shadow:
+                0 0 30px rgba(99,179,237,0.12),
+                inset 0 0 30px rgba(99,179,237,0.04);
+        }
+
+        .room.selected {
+            border-color: rgba(99,179,237,0.6);
+            box-shadow:
+                0 0 40px rgba(99,179,237,0.15),
+                inset 0 0 40px rgba(99,179,237,0.06);
+        }
+
+        .room:hover .room-card,
+        .room.selected .room-card {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+
+        /* Top-left rounded corners */
+        .room-row:first-child .room:first-child { border-radius: 10px 0 0 0; }
+        .room-row:first-child .room:last-child { border-radius: 0 10px 0 0; }
+        .room-row:last-child .room:first-child { border-radius: 0 0 0 10px; }
+        .room-row:last-child .room:last-child { border-radius: 0 0 10px 0; }
+
+        /* Furniture inside rooms */
+        .furniture {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            opacity: 0.35;
+        }
+
+        .bed {
+            width: 36px;
+            height: 22px;
+            background: #3a4a5e;
+            border: 1px solid #4a5a6e;
+            border-radius: 3px;
+        }
+
+        .shelf {
+            width: 70%;
+            height: 5px;
+            background: #3a3050;
+            border: 1px solid #4a4060;
+            border-radius: 2px;
+            margin: 0 auto;
+        }
+
+        .tank {
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, #3a3050 60%, #2a2040 100%);
+            border: 1.5px solid #5a4a70;
+            border-radius: 50%;
+            margin: 0 auto;
+        }
+
+        .furniture-storage {
+            position: absolute;
+            bottom: 10px;
+            left: 15%;
+            right: 15%;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            opacity: 0.35;
+        }
+
+        .furniture-tank {
+            position: absolute;
+            bottom: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0.35;
+        }
+
+        /* ── Room Card Label ───────────────────────────── */
+        .room-card {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-radius: 10px;
+            padding: 10px 14px;
+            min-width: 130px;
+            z-index: 2;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+            pointer-events: none;
+        }
+
+        .room-card.green-accent {
+            border-left: 4px solid #48bb78;
+        }
+
+        .room-card.orange-accent {
+            border-left: 4px solid #ed8936;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 3px;
+        }
+
+        .card-name {
+            font-size: 12px;
+            font-weight: 700;
+            color: #2d3748;
+            white-space: nowrap;
+        }
+
+        .card-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .card-dot.green { background: #48bb78; box-shadow: 0 0 6px rgba(72,187,120,0.5); }
+        .card-dot.orange { background: #ed8936; box-shadow: 0 0 6px rgba(237,137,54,0.5); }
+
+        .card-type {
+            font-size: 10px;
+            color: #718096;
+            font-weight: 400;
+        }
+
+        /* ── Responsiveness ────────────────────────────── */
+        @media (max-width: 1100px) {
+            .side-panel { width: 260px; min-width: 260px; }
+            .room { width: 140px; height: 140px; }
+        }
+
+        @media (max-width: 900px) {
+            body { flex-direction: column; overflow-y: auto; }
+            .side-panel { width: 100%; min-width: unset; flex-direction: row; flex-wrap: wrap; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); padding: 16px; }
+            .main-content { padding: 20px; }
+        }
+
+        /* ── Animations ────────────────────────────────── */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translate(-50%, -45%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        .room-card {
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .room:nth-child(1) .room-card { animation-delay: 0.05s; }
+        .room:nth-child(2) .room-card { animation-delay: 0.10s; }
+        .room:nth-child(3) .room-card { animation-delay: 0.15s; }
+        .room:nth-child(4) .room-card { animation-delay: 0.20s; }
+        .room:nth-child(5) .room-card { animation-delay: 0.25s; }
+    </style>
+</head>
+<body>
+    <!-- Side Panel -->
+    <aside class="side-panel">
+        <div class="panel-header">
+            <h1>
+                <span class="icon-hotel">🏨</span>
+                Hotel Interactivo
+            </h1>
+            <div class="status-pills">
+                <span class="pill pill-green">Disponibles</span>
+                <span class="pill pill-orange">Ocupadas</span>
+                <span class="pill pill-purple">Mantenimiento</span>
+            </div>
+        </div>
+
+        <div class="room-detail">
+            <div class="room-detail-placeholder" id="detailPlaceholder">
+                <div class="click-icon">🏠</div>
+                <p>Haz clic en una habitación<br>para ver sus detalles</p>
+            </div>
+
+            <div class="room-detail-content" id="detailContent">
+                <div class="detail-icon" id="detailIcon"></div>
+                <div class="detail-name" id="detailName"></div>
+                <div class="detail-type" id="detailType"></div>
+                <div class="detail-divider"></div>
+                <div class="detail-status" id="detailStatus"></div>
+                <div class="detail-divider"></div>
+                <div class="detail-row">
+                    <span class="label">Ubicación</span>
+                    <span class="value" id="detailLocation"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Piso</span>
+                    <span class="value" id="detailFloor">Planta Baja</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Capacidad</span>
+                    <span class="value" id="detailCapacity"></span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="floor-plan-wrapper">
+            <div class="floor-plan" id="floorPlan">
+                <div class="rooms-container">
+                    <!-- Top Row -->
+                    <div class="room-row" id="topRow"></div>
+                    <!-- Corridor -->
+                    <div class="corridor">
+                        <span class="corridor-label">Corredor · Pasillo</span>
+                    </div>
+                    <!-- Bottom Row -->
+                    <div class="room-row" id="bottomRow"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // ── Room Data ────────────────────────────────────────
+        const rooms = [
+            // Top row
+            { id: 1, name: "Habitación 01", type: "Huéspedes", status: "available", row: "top", icon: "🛏️", capacity: "2 personas" },
+            { id: 2, name: "Habitación 02", type: "Almacén",   status: "internal",  row: "top", icon: "📦", capacity: "—" },
+            { id: 3, name: "Habitación 03", type: "Huéspedes", status: "available", row: "top", icon: "🛏️", capacity: "2 personas" },
+            { id: 4, name: "Habitación 04", type: "Termotanque", status: "internal", row: "top", icon: "🔥", capacity: "—" },
+            { id: 5, name: "Habitación 05", type: "Huéspedes", status: "available", row: "top", icon: "🛏️", capacity: "2 personas" },
+            // Bottom row
+            { id: 6,  name: "Habitación 06", type: "Huéspedes", status: "available", row: "bottom", icon: "🛏️", capacity: "2 personas" },
+            { id: 7,  name: "Habitación 07", type: "Huéspedes", status: "available", row: "bottom", icon: "🛏️", capacity: "2 personas" },
+            { id: 8,  name: "Habitación 08", type: "Huéspedes", status: "available", row: "bottom", icon: "🛏️", capacity: "2 personas" },
+            { id: 9,  name: "Habitación 09", type: "Huéspedes", status: "available", row: "bottom", icon: "🛏️", capacity: "2 personas" },
+            { id: 10, name: "Habitación 10", type: "Huéspedes", status: "available", row: "bottom", icon: "🛏️", capacity: "2 personas" },
+        ];
+
+        let selectedRoom = null;
+
+        // ── Build Floor Plan ─────────────────────────────────
+        function buildFloorPlan() {
+            const topRow = document.getElementById('topRow');
+            const bottomRow = document.getElementById('bottomRow');
+
+            rooms.forEach(room => {
+                const roomEl = createRoomElement(room);
+                if (room.row === 'top') {
+                    topRow.appendChild(roomEl);
+                } else {
+                    bottomRow.appendChild(roomEl);
+                }
+            });
+        }
+
+        function createRoomElement(room) {
+            const el = document.createElement('div');
+            const isGuest = room.type === 'Huéspedes';
+            el.className = `room ${isGuest ? 'guest' : 'utility'}`;
+            el.dataset.roomId = room.id;
+
+            // Furniture
+            let furnitureHTML = '';
+            if (room.type === 'Huéspedes') {
+                furnitureHTML = `
+                    <div class="furniture">
+                        <div class="bed"></div>
+                        <div class="bed"></div>
+                    </div>`;
+            } else if (room.type === 'Almacén') {
+                furnitureHTML = `
+                    <div class="furniture-storage">
+                        <div class="shelf"></div>
+                        <div class="shelf"></div>
+                        <div class="shelf"></div>
+                    </div>`;
+            } else if (room.type === 'Termotanque') {
+                furnitureHTML = `
+                    <div class="furniture-tank">
+                        <div class="tank"></div>
+                    </div>`;
+            }
+
+            // Card
+            const dotClass = isGuest ? 'green' : 'orange';
+            const accentClass = isGuest ? 'green-accent' : 'orange-accent';
+
+            el.innerHTML = `
+                ${furnitureHTML}
+                <div class="room-card ${accentClass}">
+                    <div class="card-header">
+                        <span class="card-name">${room.name}</span>
+                        <span class="card-dot ${dotClass}"></span>
+                    </div>
+                    <div class="card-type">${room.type}</div>
+                </div>
+            `;
+
+            el.addEventListener('click', () => selectRoom(room, el));
+
+            return el;
+        }
+
+        // ── Select Room ──────────────────────────────────────
+        function selectRoom(room, el) {
+            // Remove previous selection
+            document.querySelectorAll('.room.selected').forEach(r => r.classList.remove('selected'));
+
+            // Select
+            el.classList.add('selected');
+            selectedRoom = room;
+
+            // Update detail panel
+            const placeholder = document.getElementById('detailPlaceholder');
+            const content = document.getElementById('detailContent');
+            placeholder.style.display = 'none';
+            content.classList.add('active');
+
+            document.getElementById('detailIcon').textContent = room.icon;
+            document.getElementById('detailName').textContent = room.name;
+
+            const typeEl = document.getElementById('detailType');
+            typeEl.textContent = room.type;
+            typeEl.className = 'detail-type ' + (room.type === 'Huéspedes' ? 'guest' : 'utility');
+
+            const statusEl = document.getElementById('detailStatus');
+            if (room.type === 'Huéspedes') {
+                statusEl.textContent = '🟢  Disponible';
+            } else if (room.type === 'Almacén') {
+                statusEl.textContent = '📦  Uso interno';
+            } else {
+                statusEl.textContent = '🔧  Uso interno';
+            }
+
+            document.getElementById('detailLocation').textContent =
+                room.row === 'top' ? 'Fila Superior' : 'Fila Inferior';
+
+            document.getElementById('detailCapacity').textContent = room.capacity;
+        }
+
+        // ── Init ─────────────────────────────────────────────
+        buildFloorPlan();
+    </script>
+</body>
+</html>

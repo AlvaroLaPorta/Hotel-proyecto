@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Hotel Karim{% endblock %}</title>
+    <meta name="description" content="Sistema de gestión de reservas — Hotel Karim">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script>
+        // Apply saved theme/font/floor-plan settings on load
+        (function () {
+            const theme = localStorage.getItem('hk-theme') || 'dark';
+            const fontSize = localStorage.getItem('hk-font-size') || 'medium';
+            const accent = localStorage.getItem('hk-accent');
+            document.documentElement.setAttribute('data-theme', theme);
+            document.documentElement.setAttribute('data-font-size', fontSize);
+            if (accent) document.documentElement.style.setProperty('--accent', accent);
+
+            // Floor plan colors
+            const fpRoom = localStorage.getItem('hk-fp-room');
+            const fpCorridor = localStorage.getItem('hk-fp-corridor');
+            const fpFrame = localStorage.getItem('hk-fp-frame');
+            if (fpRoom) {
+                document.documentElement.style.setProperty('--fp-room', fpRoom);
+                // Compute darker occupied variant
+                const n = parseInt(fpRoom.replace('#', ''), 16);
+                const r = Math.max(0, (n >> 16) - 30);
+                const g = Math.max(0, ((n >> 8) & 0xFF) - 30);
+                const b = Math.max(0, (n & 0xFF) - 30);
+                document.documentElement.style.setProperty('--fp-room-occupied',
+                    '#' + (1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1));
+            }
+            if (fpCorridor) document.documentElement.style.setProperty('--fp-corridor', fpCorridor);
+            if (fpFrame) document.documentElement.style.setProperty('--fp-frame', fpFrame);
+
+            // Status colors
+            const stAvail = localStorage.getItem('hk-status-available');
+            const stOccup = localStorage.getItem('hk-status-occupied');
+            const stMaint = localStorage.getItem('hk-status-maintenance');
+            if (stAvail) document.documentElement.style.setProperty('--status-available', stAvail);
+            if (stOccup) document.documentElement.style.setProperty('--status-occupied', stOccup);
+            if (stMaint) {
+                document.documentElement.style.setProperty('--status-maintenance', stMaint);
+                document.documentElement.style.setProperty('--fp-maintenance', stMaint);
+            }
+
+            // Glow toggle
+            const glow = localStorage.getItem('hk-glow');
+            if (glow === 'off') document.body.setAttribute('data-glow', 'off');
+        })();
+    </script>
+</head>
+
+<body>
+    {% block navbar %}
+    <nav class="navbar">
+        <a href="/" class="navbar-brand">
+            <span class="brand-icon">🏨</span>
+            Hotel Karim
+        </a>
+        <div class="navbar-links">
+            <a href="/clientes" {% if request.path=='/clientes' %}class="active" {% endif %}>👥 Clientes</a>
+            <a href="/habitaciones" {% if request.path=='/habitaciones' %}class="active" {% endif %}>🏠 Habitaciones</a>
+            <a href="/configuracion" {% if request.path=='/configuracion' %}class="active" {% endif %}>⚙️
+                Configuración</a>
+        </div>
+    </nav>
+    {% endblock %}
+
+    <div id="toastContainer" class="toast-container"></div>
+
+    {% block content %}{% endblock %}
+
+    <script>
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>

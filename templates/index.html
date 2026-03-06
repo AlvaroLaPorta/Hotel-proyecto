@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Hotel Karim — Inicio{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <div class="hero-icon">🏨</div>
+    <h1>Hotel Karim</h1>
+    <p>Sistema de gestión de reservas y hospedaje</p>
+
+    <div class="hero-buttons">
+        <a href="/clientes" class="hero-btn">
+            <span class="icon">👥</span>
+            <span class="label">Clientes</span>
+        </a>
+        <a href="/habitaciones" class="hero-btn">
+            <span class="icon">🏠</span>
+            <span class="label">Habitaciones</span>
+        </a>
+        <a href="/configuracion" class="hero-btn">
+            <span class="icon">⚙️</span>
+            <span class="label">Configuración</span>
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,295 @@
+{% extends "base.html" %}
+{% block title %}Hotel Karim — Configuración{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>⚙️ Configuración</h1>
+        <p>Personaliza la apariencia del sistema</p>
+    </div>
+
+    <div class="settings-grid">
+        <!-- Theme -->
+        <div class="card setting-card">
+            <h3>🎨 Tema</h3>
+            <div class="setting-options" id="themeOptions">
+                <button class="setting-option" data-value="dark" onclick="setTheme('dark')">🌙 Oscuro</button>
+                <button class="setting-option" data-value="light" onclick="setTheme('light')">☀️ Claro</button>
+            </div>
+        </div>
+        <!-- Glow toggle -->
+        <div class="card setting-card">
+            <h3>✨ Degradado de Fondo</h3>
+            <p style="color:var(--text-secondary);font-size:12px;margin-bottom:10px;">Brillo sutil en los bordes de la
+                página</p>
+            <div class="setting-options" id="glowOptions">
+                <button class="setting-option" data-value="on" onclick="setGlow('on')">🔆 Activado</button>
+                <button class="setting-option" data-value="off" onclick="setGlow('off')">🌑 Desactivado</button>
+            </div>
+        </div>
+
+        <!-- Font size -->
+        <div class="card setting-card">
+            <h3>🔤 Tamaño de Fuente</h3>
+            <div class="setting-options" id="fontSizeOptions">
+                <button class="setting-option" data-value="small" onclick="setFontSize('small')">Pequeña</button>
+                <button class="setting-option" data-value="medium" onclick="setFontSize('medium')">Mediana</button>
+                <button class="setting-option" data-value="large" onclick="setFontSize('large')">Grande</button>
+            </div>
+        </div>
+
+        <!-- Accent color -->
+        <div class="card setting-card">
+            <h3>🎯 Color de Acento</h3>
+            <div class="setting-options" id="accentOptions">
+                <div class="color-swatch" style="background:#63b3ed;" data-value="#63b3ed"
+                    onclick="setAccent('#63b3ed')"></div>
+                <div class="color-swatch" style="background:#48bb78;" data-value="#48bb78"
+                    onclick="setAccent('#48bb78')"></div>
+                <div class="color-swatch" style="background:#9f7aea;" data-value="#9f7aea"
+                    onclick="setAccent('#9f7aea')"></div>
+                <div class="color-swatch" style="background:#ed8936;" data-value="#ed8936"
+                    onclick="setAccent('#ed8936')"></div>
+                <div class="color-swatch" style="background:#fc8181;" data-value="#fc8181"
+                    onclick="setAccent('#fc8181')"></div>
+                <div class="color-swatch" style="background:#d4a853;" data-value="#d4a853"
+                    onclick="setAccent('#d4a853')"></div>
+            </div>
+        </div>
+
+        <!-- Floor Plan Colors — full width -->
+        <div class="card setting-card" style="grid-column: 1 / -1;">
+            <h3>🏨 Colores del Plano del Hotel</h3>
+            <p style="color:var(--text-secondary);font-size:13px;margin-bottom:16px;">Personaliza los colores de las
+                habitaciones, el pasillo y el marco</p>
+
+            <div class="fp-color-grid">
+                <!-- Habitaciones -->
+                <div class="fp-color-item">
+                    <label>🛏️ Habitaciones</label>
+                    <div class="fp-color-row">
+                        <input type="color" id="fpRoomColor" class="color-picker-input" value="#F2D06B"
+                            onchange="setFloorPlanColor('room', this.value)">
+                        <span class="fp-color-hex" id="fpRoomHex">#F2D06B</span>
+                    </div>
+                    <div class="fp-presets">
+                        <div class="fp-preset" style="background:#F2D06B;" onclick="setFloorPlanColor('room','#F2D06B')"
+                            title="Amarillo suave"></div>
+                        <div class="fp-preset" style="background:#FFD700;" onclick="setFloorPlanColor('room','#FFD700')"
+                            title="Dorado"></div>
+                        <div class="fp-preset" style="background:#FFA500;" onclick="setFloorPlanColor('room','#FFA500')"
+                            title="Naranja"></div>
+                        <div class="fp-preset" style="background:#E07B2E;" onclick="setFloorPlanColor('room','#E07B2E')"
+                            title="Naranja oscuro"></div>
+                        <div class="fp-preset" style="background:#FF6B6B;" onclick="setFloorPlanColor('room','#FF6B6B')"
+                            title="Coral"></div>
+                        <div class="fp-preset" style="background:#FC8181;" onclick="setFloorPlanColor('room','#FC8181')"
+                            title="Rojo suave"></div>
+                        <div class="fp-preset" style="background:#E53E3E;" onclick="setFloorPlanColor('room','#E53E3E')"
+                            title="Rojo"></div>
+                        <div class="fp-preset" style="background:#135AE6;" onclick="setFloorPlanColor('room','#135AE6')"
+                            title="Azul"></div>
+                        <div class="fp-preset" style="background:#63B3ED;" onclick="setFloorPlanColor('room','#63B3ED')"
+                            title="Celeste"></div>
+                        <div class="fp-preset" style="background:#3182CE;" onclick="setFloorPlanColor('room','#3182CE')"
+                            title="Azul medio"></div>
+                        <div class="fp-preset" style="background:#48BB78;" onclick="setFloorPlanColor('room','#48BB78')"
+                            title="Verde"></div>
+                        <div class="fp-preset" style="background:#38A169;" onclick="setFloorPlanColor('room','#38A169')"
+                            title="Verde oscuro"></div>
+                        <div class="fp-preset" style="background:#68D391;" onclick="setFloorPlanColor('room','#68D391')"
+                            title="Verde claro"></div>
+                        <div class="fp-preset" style="background:#9F7AEA;" onclick="setFloorPlanColor('room','#9F7AEA')"
+                            title="Violeta"></div>
+                        <div class="fp-preset" style="background:#B794F4;" onclick="setFloorPlanColor('room','#B794F4')"
+                            title="Lavanda"></div>
+                        <div class="fp-preset" style="background:#ED64A6;" onclick="setFloorPlanColor('room','#ED64A6')"
+                            title="Rosa"></div>
+                        <div class="fp-preset" style="background:#D69E2E;" onclick="setFloorPlanColor('room','#D69E2E')"
+                            title="Mostaza"></div>
+                        <div class="fp-preset" style="background:#DD6B20;" onclick="setFloorPlanColor('room','#DD6B20')"
+                            title="Marrón"></div>
+                    </div>
+                </div>
+
+                <!-- Pasillo -->
+                <div class="fp-color-item">
+                    <label>🚶 Pasillo</label>
+                    <div class="fp-color-row">
+                        <input type="color" id="fpCorridorColor" class="color-picker-input" value="#9E9E9E"
+                            onchange="setFloorPlanColor('corridor', this.value)">
+                        <span class="fp-color-hex" id="fpCorridorHex">#9E9E9E</span>
+                    </div>
+                    <div class="fp-presets">
+                        <div class="fp-preset" style="background:#9E9E9E;"
+                            onclick="setFloorPlanColor('corridor','#9E9E9E')" title="Gris"></div>
+                        <div class="fp-preset" style="background:#BDBDBD;"
+                            onclick="setFloorPlanColor('corridor','#BDBDBD')" title="Gris claro"></div>
+                        <div class="fp-preset" style="background:#666666;"
+                            onclick="setFloorPlanColor('corridor','#666666')" title="Gris oscuro"></div>
+                        <div class="fp-preset" style="background:#424242;"
+                            onclick="setFloorPlanColor('corridor','#424242')" title="Grafito"></div>
+                        <div class="fp-preset" style="background:#ECCEAD;"
+                            onclick="setFloorPlanColor('corridor','#ECCEAD')" title="Beige"></div>
+                        <div class="fp-preset" style="background:#D7CCC8;"
+                            onclick="setFloorPlanColor('corridor','#D7CCC8')" title="Beige claro"></div>
+                        <div class="fp-preset" style="background:#B8B0A0;"
+                            onclick="setFloorPlanColor('corridor','#B8B0A0')" title="Arena"></div>
+                        <div class="fp-preset" style="background:#A0C4E8;"
+                            onclick="setFloorPlanColor('corridor','#A0C4E8')" title="Celeste"></div>
+                        <div class="fp-preset" style="background:#C5B5D8;"
+                            onclick="setFloorPlanColor('corridor','#C5B5D8')" title="Lavanda"></div>
+                        <div class="fp-preset" style="background:#A5D6A7;"
+                            onclick="setFloorPlanColor('corridor','#A5D6A7')" title="Verde menta"></div>
+                        <div class="fp-preset" style="background:#FFCC80;"
+                            onclick="setFloorPlanColor('corridor','#FFCC80')" title="Melocotón"></div>
+                        <div class="fp-preset" style="background:#F0E68C;"
+                            onclick="setFloorPlanColor('corridor','#F0E68C')" title="Caqui"></div>
+                    </div>
+                </div>
+
+                <!-- Marco -->
+                <div class="fp-color-item">
+                    <label>🧱 Marco / Pared</label>
+                    <div class="fp-color-row">
+                        <input type="color" id="fpFrameColor" class="color-picker-input" value="#FFFFFF"
+                            onchange="setFloorPlanColor('frame', this.value)">
+                        <span class="fp-color-hex" id="fpFrameHex">#FFFFFF</span>
+                    </div>
+                    <div class="fp-presets">
+                        <div class="fp-preset" style="background:#FFFFFF;border:1px solid #555;"
+                            onclick="setFloorPlanColor('frame','#FFFFFF')" title="Blanco"></div>
+                        <div class="fp-preset" style="background:#E0E0E0;"
+                            onclick="setFloorPlanColor('frame','#E0E0E0')" title="Gris claro"></div>
+                        <div class="fp-preset" style="background:#9E9E9E;"
+                            onclick="setFloorPlanColor('frame','#9E9E9E')" title="Gris"></div>
+                        <div class="fp-preset" style="background:#2D2D2D;"
+                            onclick="setFloorPlanColor('frame','#2D2D2D')" title="Negro"></div>
+                        <div class="fp-preset" style="background:#8B7355;"
+                            onclick="setFloorPlanColor('frame','#8B7355')" title="Madera"></div>
+                        <div class="fp-preset" style="background:#A0522D;"
+                            onclick="setFloorPlanColor('frame','#A0522D')" title="Madera oscura"></div>
+                        <div class="fp-preset" style="background:#B22222;"
+                            onclick="setFloorPlanColor('frame','#B22222')" title="Ladrillo"></div>
+                        <div class="fp-preset" style="background:#CD853F;"
+                            onclick="setFloorPlanColor('frame','#CD853F')" title="Terracota"></div>
+                        <div class="fp-preset" style="background:#DAA520;"
+                            onclick="setFloorPlanColor('frame','#DAA520')" title="Dorado"></div>
+                        <div class="fp-preset" style="background:#4A90D9;"
+                            onclick="setFloorPlanColor('frame','#4A90D9')" title="Azul"></div>
+                        <div class="fp-preset" style="background:#2E8B57;"
+                            onclick="setFloorPlanColor('frame','#2E8B57')" title="Verde"></div>
+                        <div class="fp-preset" style="background:#F5DEB3;"
+                            onclick="setFloorPlanColor('frame','#F5DEB3')" title="Trigo"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Colors — full width -->
+        <div class="card setting-card" style="grid-column: 1 / -1;">
+            <h3>🚦 Colores de Estado</h3>
+            <p style="color:var(--text-secondary);font-size:13px;margin-bottom:16px;">Personaliza los indicadores de
+                disponible, ocupado y mantenimiento</p>
+
+            <div class="fp-color-grid">
+                <!-- Disponible -->
+                <div class="fp-color-item">
+                    <label>🟢 Disponible</label>
+                    <div class="fp-color-row">
+                        <input type="color" id="fpStatusAvailable" class="color-picker-input" value="#48BB78"
+                            onchange="setStatusColor('available', this.value)">
+                        <span class="fp-color-hex" id="fpStatusAvailableHex">#48BB78</span>
+                    </div>
+                    <div class="fp-presets">
+                        <div class="fp-preset" style="background:#48BB78;"
+                            onclick="setStatusColor('available','#48BB78')" title="Verde"></div>
+                        <div class="fp-preset" style="background:#38A169;"
+                            onclick="setStatusColor('available','#38A169')" title="Verde oscuro"></div>
+                        <div class="fp-preset" style="background:#68D391;"
+                            onclick="setStatusColor('available','#68D391')" title="Verde claro"></div>
+                        <div class="fp-preset" style="background:#9AE6B4;"
+                            onclick="setStatusColor('available','#9AE6B4')" title="Menta"></div>
+                        <div class="fp-preset" style="background:#2F855A;"
+                            onclick="setStatusColor('available','#2F855A')" title="Verde bosque"></div>
+                        <div class="fp-preset" style="background:#00B5D8;"
+                            onclick="setStatusColor('available','#00B5D8')" title="Cyan"></div>
+                        <div class="fp-preset" style="background:#63B3ED;"
+                            onclick="setStatusColor('available','#63B3ED')" title="Celeste"></div>
+                        <div class="fp-preset" style="background:#4FD1C5;"
+                            onclick="setStatusColor('available','#4FD1C5')" title="Turquesa"></div>
+                    </div>
+                </div>
+
+                <!-- Ocupado -->
+                <div class="fp-color-item">
+                    <label>🟠 Ocupado</label>
+                    <div class="fp-color-row">
+                        <input type="color" id="fpStatusOccupied" class="color-picker-input" value="#ED8936"
+                            onchange="setStatusColor('occupied', this.value)">
+                        <span class="fp-color-hex" id="fpStatusOccupiedHex">#ED8936</span>
+                    </div>
+                    <div class="fp-presets">
+                        <div class="fp-preset" style="background:#ED8936;"
+                            onclick="setStatusColor('occupied','#ED8936')" title="Naranja"></div>
+                        <div class="fp-preset" style="background:#DD6B20;"
+                            onclick="setStatusColor('occupied','#DD6B20')" title="Naranja oscuro"></div>
+                        <div class="fp-preset" style="background:#F6AD55;"
+                            onclick="setStatusColor('occupied','#F6AD55')" title="Naranja claro"></div>
+                        <div class="fp-preset" style="background:#FBD38D;"
+                            onclick="setStatusColor('occupied','#FBD38D')" title="Melocotón"></div>
+                        <div class="fp-preset" style="background:#E53E3E;"
+                            onclick="setStatusColor('occupied','#E53E3E')" title="Rojo"></div>
+                        <div class="fp-preset" style="background:#FC8181;"
+                            onclick="setStatusColor('occupied','#FC8181')" title="Rojo suave"></div>
+                        <div class="fp-preset" style="background:#D69E2E;"
+                            onclick="setStatusColor('occupied','#D69E2E')" title="Mostaza"></div>
+                        <div class="fp-preset" style="background:#ECC94B;"
+                            onclick="setStatusColor('occupied','#ECC94B')" title="Amarillo"></div>
+                    </div>
+                </div>
+
+                <!-- Mantenimiento -->
+                <div class="fp-color-item">
+                    <label>🔴 Mantenimiento</label>
+                    <div class="fp-color-row">
+                        <input type="color" id="fpStatusMaintenance" class="color-picker-input" value="#3D1C1C"
+                            onchange="setStatusColor('maintenance', this.value)">
+                        <span class="fp-color-hex" id="fpStatusMaintenanceHex">#3D1C1C</span>
+                    </div>
+                    <div class="fp-presets">
+                        <div class="fp-preset" style="background:#3D1C1C;"
+                            onclick="setStatusColor('maintenance','#3D1C1C')" title="Marrón oscuro"></div>
+                        <div class="fp-preset" style="background:#742A2A;"
+                            onclick="setStatusColor('maintenance','#742A2A')" title="Rojo ladrillo"></div>
+                        <div class="fp-preset" style="background:#E53E3E;"
+                            onclick="setStatusColor('maintenance','#E53E3E')" title="Rojo"></div>
+                        <div class="fp-preset" style="background:#C53030;"
+                            onclick="setStatusColor('maintenance','#C53030')" title="Rojo oscuro"></div>
+                        <div class="fp-preset" style="background:#2D3748;"
+                            onclick="setStatusColor('maintenance','#2D3748')" title="Gris azulado"></div>
+                        <div class="fp-preset" style="background:#1A202C;"
+                            onclick="setStatusColor('maintenance','#1A202C')" title="Negro azulado"></div>
+                        <div class="fp-preset" style="background:#718096;"
+                            onclick="setStatusColor('maintenance','#718096')" title="Gris"></div>
+                        <div class="fp-preset" style="background:#553C9A;"
+                            onclick="setStatusColor('maintenance','#553C9A')" title="Violeta oscuro"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reset -->
+        <div class="card setting-card">
+            <h3>🔄 Restablecer</h3>
+            <p style="color:var(--text-secondary);font-size:13px;margin-bottom:12px;">Volver a la configuración por
+                defecto</p>
+            <button class="btn btn-danger" onclick="resetSettings()">Restablecer Todo</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/configuracion.js"></script>
+{% endblock %}

@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+
+# Ejecutables y carpetas de PyInstaller (visto en tu captura)
+build/
+dist/
+*.toc
+*.spec
+*.exe
+
+electron/dist/
+electron/installer-output/

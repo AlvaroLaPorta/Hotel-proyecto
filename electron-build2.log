@@ -1,0 +1,229 @@
+﻿  ÔÇó electron-builder  version=25.1.8 os=10.0.26200
+  ÔÇó loaded configuration  file=package.json ("build" field)
+  ÔÇó effective config  config=directories:
+  output: installer-output
+  buildResources: build
+appId: com.hotelkarim.app
+productName: Hotel Karim
+copyright: Copyright ┬® 2026 Hotel Karim
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+  icon: null
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  installerLanguages:
+    - es
+  language: '3082'
+  installerSidebar: null
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: Hotel Karim
+files:
+  - filter:
+      - main.js
+      - preload.js
+extraResources:
+  - from: dist/flask-server/
+    to: flask-server
+    filter:
+      - '**/*'
+
+  ÔÇó spawning        command=C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\node_modules\app-builder-bin\win\x64\app-builder.exe node-dep-tree --dir C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron
+  ÔÇó exited          command=app-builder.exe code=0 pid=7500 out=[]
+  ÔÇó executing @electron/rebuild  electronVersion=33.4.11 arch=x64 buildFromSource=false appDir=./
+  ÔÇó installing native dependencies  arch=x64
+  ÔÇó completed installing native dependencies
+  ÔÇó packaging       platform=win32 arch=x64 electron=33.4.11 appOutDir=installer-output\win-unpacked
+  ÔÇó spawning        command=C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\node_modules\app-builder-bin\win\x64\app-builder.exe unpack-electron --configuration [{"platform":"win32","arch":"x64","version":"33.4.11"}] --output C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\installer-output\win-unpacked --distMacOsAppName Electron.app
+  ÔÇó map async       taskCount=2
+  ÔÇó map async       taskCount=1
+  ÔÇó map async       taskCount=73
+  ÔÇó exited          command=app-builder.exe code=0 pid=13180
+  ÔÇó spawning        command=C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\node_modules\app-builder-bin\win\x64\app-builder.exe node-dep-tree --dir C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron --flatten
+  ÔÇó exited          command=app-builder.exe code=0 pid=9156 out=[]
+  ÔÇó updating asar integrity executable resource  executablePath=installer-output\win-unpacked\Hotel Karim.exe
+  ÔÇó copying files using pattern  matcher=from: C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\dist\flask-server, to: C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\installer-output\win-unpacked\resources\flask-server, patterns: **/*
+  ÔÇó copying         src=C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\dist\flask-server destination=C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\installer-output\win-unpacked\resources\flask-server
+  ÔÇó signing with signtool.exe  path=installer-output\win-unpacked\resources\flask-server\hotel-karim.exe
+  ÔÇó no signing info identified, signing is skipped  signHook=false cscInfo=null
+  ÔÇó getPublishConfigsForUpdateInfo: no publishConfigs, detect using repository info
+  ÔÇó spawning        command=C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\node_modules\app-builder-bin\win\x64\app-builder.exe icon --format ico --root C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\build --root C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron --out C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\installer-output\.icon-ico
+  ÔÇó path doesn't exist  path=C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\build\icon.ico
+  ÔÇó path doesn't exist  path=C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\icon.ico
+  ÔÇó path doesn't exist  path=C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\build\icons
+  ÔÇó path doesn't exist  path=C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\icons
+  ÔÇó path doesn't exist  path=C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\build\icon.png
+  ÔÇó path doesn't exist  path=C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\icon.png
+  ÔÇó path doesn't exist  path=C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\build\icon.icns
+  ÔÇó path doesn't exist  path=C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\icon.icns
+  ÔÇó no icons found, using provided fallback sources  
+  ÔÇó exited          command=app-builder.exe code=0 pid=9252 out={"icons":null,"isFallback":true}
+  ÔÇó default Electron icon is used  reason=application icon is not set
+  ÔÇó spawning        command=C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\node_modules\app-builder-bin\win\x64\app-builder.exe rcedit --args ["C:\\Users\\lapor\\OneDrive\\Escritorio\\Hotel proyecto\\electron\\installer-output\\win-unpacked\\Hotel Karim.exe","--set-version-string","FileDescription","Sistema de gesti├│n de reservas ÔÇö Hotel Karim","--set-version-string","ProductName","Hotel Karim","--set-version-string","LegalCopyright","Copyright ┬® 2026 Hotel Karim","--set-file-version","1.0.0","--set-product-version","1.0.0.0","--set-version-string","InternalName","Hotel Karim","--set-version-string","OriginalFilename","","--set-version-string","CompanyName","Hotel Karim"]
+  ÔÇó computing effective URL  initialUrl=https://github.com/electron-userland/electron-builder-binaries/releases/download/winCodeSign-2.6.0/winCodeSign-2.6.0.7z
+                             currentUrl=https://release-assets.githubusercontent.com/github-production-release-asset/65527128/f73f2200-5d53-11ea-8264-ddd345f11ee4?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-03-05T20%3A53%3A13Z&rscd=attachment%3B+filename%3DwinCodeSign-2.6.0.7z&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-03-05T19%3A52%3A46Z&ske=2026-03-05T20%3A53%3A13Z&sks=b&skv=2018-11-09&sig=Jl2ZIqh5%2BEqQsgk2KlXFHkNaE4Ow1FJDOJpduZPFOBY%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc3Mjc0MjI2MywibmJmIjoxNzcyNzQxOTYzLCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.YrjV1smmc0-bsxs-g3X76RHwIEPvC7KUIZhSsyRC0mk&response-content-disposition=attachment%3B%20filename%3DwinCodeSign-2.6.0.7z&response-content-type=application%2Foctet-stream
+  ÔÇó downloading     url=https://github.com/electron-userland/electron-builder-binaries/releases/download/winCodeSign-2.6.0/winCodeSign-2.6.0.7z length=5635384 contentType=application/octet-stream
+  ÔÇó downloading     url=https://github.com/electron-userland/electron-builder-binaries/releases/download/winCodeSign-2.6.0/winCodeSign-2.6.0.7z size=5.6 MB parts=1
+  ÔÇó map async       taskCount=1
+  ÔÇó download part   range=bytes=0-5635383 index=0
+  ÔÇó downloaded      url=https://github.com/electron-userland/electron-builder-binaries/releases/download/winCodeSign-2.6.0/winCodeSign-2.6.0.7z duration=1.616s
+  ÔÇó execute command  command='C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\node_modules\7zip-bin\win\x64\7za.exe' x -snld -bd 'C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\764725231.7z' '-oC:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\764725231'
+                     workingDirectory=C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign
+  Ô¿» cannot execute  cause=exit status 2
+                    out=
+    7-Zip (a) 21.07 (x64) : Copyright (c) 1999-2021 Igor Pavlov : 2021-12-26
+    
+    Scanning the drive for archives:
+    1 file, 5635384 bytes (5504 KiB)
+    
+    Extracting archive: C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\764725231.7z
+    --
+    Path = C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\764725231.7z
+    Type = 7z
+    Physical Size = 5635384
+    Headers Size = 1492
+    Method = LZMA2:24m LZMA:20 BCJ2
+    Solid = +
+    Blocks = 2
+    
+    
+    Sub items Errors: 2
+    
+    Archives with Errors: 1
+    
+    Sub items Errors: 2
+    
+                    errorOut=ERROR: Cannot create symbolic link : El cliente no dispone de un privilegio requerido. : C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\764725231\darwin\10.12\lib\libcrypto.dylib
+    ERROR: Cannot create symbolic link : El cliente no dispone de un privilegio requerido. : C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\764725231\darwin\10.12\lib\libssl.dylib
+    
+                    command='C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\node_modules\7zip-bin\win\x64\7za.exe' x -snld -bd 'C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\764725231.7z' '-oC:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\764725231'
+                    workingDir=C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign
+  ÔÇó exited          command=app-builder.exe code=2 pid=18148
+  ÔÇó Above command failed, retrying 3 more times
+  ÔÇó spawning        command=C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\node_modules\app-builder-bin\win\x64\app-builder.exe rcedit --args ["C:\\Users\\lapor\\OneDrive\\Escritorio\\Hotel proyecto\\electron\\installer-output\\win-unpacked\\Hotel Karim.exe","--set-version-string","FileDescription","Sistema de gesti├│n de reservas ÔÇö Hotel Karim","--set-version-string","ProductName","Hotel Karim","--set-version-string","LegalCopyright","Copyright ┬® 2026 Hotel Karim","--set-file-version","1.0.0","--set-product-version","1.0.0.0","--set-version-string","InternalName","Hotel Karim","--set-version-string","OriginalFilename","","--set-version-string","CompanyName","Hotel Karim"]
+  ÔÇó computing effective URL  initialUrl=https://github.com/electron-userland/electron-builder-binaries/releases/download/winCodeSign-2.6.0/winCodeSign-2.6.0.7z
+                             currentUrl=https://release-assets.githubusercontent.com/github-production-release-asset/65527128/f73f2200-5d53-11ea-8264-ddd345f11ee4?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-03-05T20%3A53%3A13Z&rscd=attachment%3B+filename%3DwinCodeSign-2.6.0.7z&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-03-05T19%3A52%3A46Z&ske=2026-03-05T20%3A53%3A13Z&sks=b&skv=2018-11-09&sig=Jl2ZIqh5%2BEqQsgk2KlXFHkNaE4Ow1FJDOJpduZPFOBY%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc3Mjc0MjI2MywibmJmIjoxNzcyNzQxOTYzLCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.YrjV1smmc0-bsxs-g3X76RHwIEPvC7KUIZhSsyRC0mk&response-content-disposition=attachment%3B%20filename%3DwinCodeSign-2.6.0.7z&response-content-type=application%2Foctet-stream
+  ÔÇó downloading     url=https://github.com/electron-userland/electron-builder-binaries/releases/download/winCodeSign-2.6.0/winCodeSign-2.6.0.7z length=5635384 contentType=application/octet-stream
+  ÔÇó downloading     url=https://github.com/electron-userland/electron-builder-binaries/releases/download/winCodeSign-2.6.0/winCodeSign-2.6.0.7z size=5.6 MB parts=1
+  ÔÇó map async       taskCount=1
+  ÔÇó download part   range=bytes=0-5635383 index=0
+  ÔÇó downloaded      url=https://github.com/electron-userland/electron-builder-binaries/releases/download/winCodeSign-2.6.0/winCodeSign-2.6.0.7z duration=634ms
+  ÔÇó execute command  command='C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\node_modules\7zip-bin\win\x64\7za.exe' x -snld -bd 'C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\863013151.7z' '-oC:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\863013151'
+                     workingDirectory=C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign
+  Ô¿» cannot execute  cause=exit status 2
+                    out=
+    7-Zip (a) 21.07 (x64) : Copyright (c) 1999-2021 Igor Pavlov : 2021-12-26
+    
+    Scanning the drive for archives:
+    1 file, 5635384 bytes (5504 KiB)
+    
+    Extracting archive: C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\863013151.7z
+    --
+    Path = C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\863013151.7z
+    Type = 7z
+    Physical Size = 5635384
+    Headers Size = 1492
+    Method = LZMA2:24m LZMA:20 BCJ2
+    Solid = +
+    Blocks = 2
+    
+    
+    Sub items Errors: 2
+    
+    Archives with Errors: 1
+    
+    Sub items Errors: 2
+    
+                    errorOut=ERROR: Cannot create symbolic link : El cliente no dispone de un privilegio requerido. : C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\863013151\darwin\10.12\lib\libcrypto.dylib
+    ERROR: Cannot create symbolic link : El cliente no dispone de un privilegio requerido. : C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\863013151\darwin\10.12\lib\libssl.dylib
+    
+                    command='C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\node_modules\7zip-bin\win\x64\7za.exe' x -snld -bd 'C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\863013151.7z' '-oC:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\863013151'
+                    workingDir=C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign
+  ÔÇó exited          command=app-builder.exe code=2 pid=15708
+  ÔÇó Above command failed, retrying 3 more times
+  ÔÇó spawning        command=C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\node_modules\app-builder-bin\win\x64\app-builder.exe rcedit --args ["C:\\Users\\lapor\\OneDrive\\Escritorio\\Hotel proyecto\\electron\\installer-output\\win-unpacked\\Hotel Karim.exe","--set-version-string","FileDescription","Sistema de gesti├│n de reservas ÔÇö Hotel Karim","--set-version-string","ProductName","Hotel Karim","--set-version-string","LegalCopyright","Copyright ┬® 2026 Hotel Karim","--set-file-version","1.0.0","--set-product-version","1.0.0.0","--set-version-string","InternalName","Hotel Karim","--set-version-string","OriginalFilename","","--set-version-string","CompanyName","Hotel Karim"]
+  ÔÇó computing effective URL  initialUrl=https://github.com/electron-userland/electron-builder-binaries/releases/download/winCodeSign-2.6.0/winCodeSign-2.6.0.7z
+                             currentUrl=https://release-assets.githubusercontent.com/github-production-release-asset/65527128/f73f2200-5d53-11ea-8264-ddd345f11ee4?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-03-05T20%3A53%3A13Z&rscd=attachment%3B+filename%3DwinCodeSign-2.6.0.7z&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-03-05T19%3A52%3A46Z&ske=2026-03-05T20%3A53%3A13Z&sks=b&skv=2018-11-09&sig=Jl2ZIqh5%2BEqQsgk2KlXFHkNaE4Ow1FJDOJpduZPFOBY%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc3Mjc0MjI2MywibmJmIjoxNzcyNzQxOTYzLCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.YrjV1smmc0-bsxs-g3X76RHwIEPvC7KUIZhSsyRC0mk&response-content-disposition=attachment%3B%20filename%3DwinCodeSign-2.6.0.7z&response-content-type=application%2Foctet-stream
+  ÔÇó downloading     url=https://github.com/electron-userland/electron-builder-binaries/releases/download/winCodeSign-2.6.0/winCodeSign-2.6.0.7z length=5635384 contentType=application/octet-stream
+  ÔÇó downloading     url=https://github.com/electron-userland/electron-builder-binaries/releases/download/winCodeSign-2.6.0/winCodeSign-2.6.0.7z size=5.6 MB parts=1
+  ÔÇó map async       taskCount=1
+  ÔÇó download part   range=bytes=0-5635383 index=0
+  ÔÇó downloaded      url=https://github.com/electron-userland/electron-builder-binaries/releases/download/winCodeSign-2.6.0/winCodeSign-2.6.0.7z duration=743ms
+  ÔÇó execute command  command='C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\node_modules\7zip-bin\win\x64\7za.exe' x -snld -bd 'C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\923021535.7z' '-oC:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\923021535'
+                     workingDirectory=C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign
+  Ô¿» cannot execute  cause=exit status 2
+                    out=
+    7-Zip (a) 21.07 (x64) : Copyright (c) 1999-2021 Igor Pavlov : 2021-12-26
+    
+    Scanning the drive for archives:
+    1 file, 5635384 bytes (5504 KiB)
+    
+    Extracting archive: C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\923021535.7z
+    --
+    Path = C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\923021535.7z
+    Type = 7z
+    Physical Size = 5635384
+    Headers Size = 1492
+    Method = LZMA2:24m LZMA:20 BCJ2
+    Solid = +
+    Blocks = 2
+    
+    
+    Sub items Errors: 2
+    
+    Archives with Errors: 1
+    
+    Sub items Errors: 2
+    
+                    errorOut=ERROR: Cannot create symbolic link : El cliente no dispone de un privilegio requerido. : C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\923021535\darwin\10.12\lib\libcrypto.dylib
+    ERROR: Cannot create symbolic link : El cliente no dispone de un privilegio requerido. : C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\923021535\darwin\10.12\lib\libssl.dylib
+    
+                    command='C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\node_modules\7zip-bin\win\x64\7za.exe' x -snld -bd 'C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\923021535.7z' '-oC:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\923021535'
+                    workingDir=C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign
+  ÔÇó exited          command=app-builder.exe code=2 pid=8168
+  ÔÇó Above command failed, retrying 3 more times
+  ÔÇó spawning        command=C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\node_modules\app-builder-bin\win\x64\app-builder.exe rcedit --args ["C:\\Users\\lapor\\OneDrive\\Escritorio\\Hotel proyecto\\electron\\installer-output\\win-unpacked\\Hotel Karim.exe","--set-version-string","FileDescription","Sistema de gesti├│n de reservas ÔÇö Hotel Karim","--set-version-string","ProductName","Hotel Karim","--set-version-string","LegalCopyright","Copyright ┬® 2026 Hotel Karim","--set-file-version","1.0.0","--set-product-version","1.0.0.0","--set-version-string","InternalName","Hotel Karim","--set-version-string","OriginalFilename","","--set-version-string","CompanyName","Hotel Karim"]
+  ÔÇó computing effective URL  initialUrl=https://github.com/electron-userland/electron-builder-binaries/releases/download/winCodeSign-2.6.0/winCodeSign-2.6.0.7z
+                             currentUrl=https://release-assets.githubusercontent.com/github-production-release-asset/65527128/f73f2200-5d53-11ea-8264-ddd345f11ee4?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-03-05T20%3A53%3A13Z&rscd=attachment%3B+filename%3DwinCodeSign-2.6.0.7z&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-03-05T19%3A52%3A46Z&ske=2026-03-05T20%3A53%3A13Z&sks=b&skv=2018-11-09&sig=Jl2ZIqh5%2BEqQsgk2KlXFHkNaE4Ow1FJDOJpduZPFOBY%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc3Mjc0MjI2MywibmJmIjoxNzcyNzQxOTYzLCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.YrjV1smmc0-bsxs-g3X76RHwIEPvC7KUIZhSsyRC0mk&response-content-disposition=attachment%3B%20filename%3DwinCodeSign-2.6.0.7z&response-content-type=application%2Foctet-stream
+  ÔÇó downloading     url=https://github.com/electron-userland/electron-builder-binaries/releases/download/winCodeSign-2.6.0/winCodeSign-2.6.0.7z length=5635384 contentType=application/octet-stream
+  ÔÇó downloading     url=https://github.com/electron-userland/electron-builder-binaries/releases/download/winCodeSign-2.6.0/winCodeSign-2.6.0.7z size=5.6 MB parts=1
+  ÔÇó map async       taskCount=1
+  ÔÇó download part   range=bytes=0-5635383 index=0
+  ÔÇó downloaded      url=https://github.com/electron-userland/electron-builder-binaries/releases/download/winCodeSign-2.6.0/winCodeSign-2.6.0.7z duration=679ms
+  ÔÇó execute command  command='C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\node_modules\7zip-bin\win\x64\7za.exe' x -snld -bd 'C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\349203123.7z' '-oC:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\349203123'
+                     workingDirectory=C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign
+  Ô¿» cannot execute  cause=exit status 2
+                    out=
+    7-Zip (a) 21.07 (x64) : Copyright (c) 1999-2021 Igor Pavlov : 2021-12-26
+    
+    Scanning the drive for archives:
+    1 file, 5635384 bytes (5504 KiB)
+    
+    Extracting archive: C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\349203123.7z
+    --
+    Path = C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\349203123.7z
+    Type = 7z
+    Physical Size = 5635384
+    Headers Size = 1492
+    Method = LZMA2:24m LZMA:20 BCJ2
+    Solid = +
+    Blocks = 2
+    
+    
+    Sub items Errors: 2
+    
+    Archives with Errors: 1
+    
+    Sub items Errors: 2
+    
+                    errorOut=ERROR: Cannot create symbolic link : El cliente no dispone de un privilegio requerido. : C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\349203123\darwin\10.12\lib\libcrypto.dylib
+    ERROR: Cannot create symbolic link : El cliente no dispone de un privilegio requerido. : C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\349203123\darwin\10.12\lib\libssl.dylib
+    
+                    command='C:\Users\lapor\OneDrive\Escritorio\Hotel proyecto\electron\node_modules\7zip-bin\win\x64\7za.exe' x -snld -bd 'C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\349203123.7z' '-oC:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign\349203123'
+                    workingDir=C:\Users\lapor\AppData\Local\electron-builder\Cache\winCodeSign
+  ÔÇó exited          command=app-builder.exe code=2 pid=14628
+  ÔÇó Above command failed, retrying 3 more times

@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block title %}Hotel Karim — Clientes{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header" style="display:flex;align-items:center;justify-content:space-between;">
+        <div>
+            <h1>👥 Clientes</h1>
+            <p>Gestión de clientes hospedados</p>
+        </div>
+        <button class="btn btn-primary" onclick="openNewClientModal()">+ Nuevo Cliente</button>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters-bar">
+        <input type="text" class="form-control" id="filterNombre" placeholder="🔍 Buscar por nombre o apellido..."
+            oninput="loadClientes()">
+        <input type="text" class="form-control" id="filterEmpresa" placeholder="🏢 Empresa..." oninput="loadClientes()">
+        <input type="text" class="form-control" id="filterTelefono" placeholder="📞 Teléfono..."
+            oninput="loadClientes()">
+        <button class="btn btn-outline btn-sm" onclick="clearFilters()">Limpiar</button>
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>DNI</th>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Empresa</th>
+                    <th>Habitación</th>
+                    <th>Desde</th>
+                    <th>Hasta</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="clientesBody">
+                <tr>
+                    <td colspan="9" style="text-align:center;color:var(--text-dim);padding:40px;">Cargando...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination" id="pagination"></div>
+</div>
+
+<!-- Modal: Create/Edit Client -->
+<div class="modal-overlay" id="clientModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h2 id="modalTitle">Nuevo Cliente</h2>
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+        </div>
+        <form id="clientForm" onsubmit="saveClient(event)">
+            <input type="hidden" id="clientId">
+            <div class="form-group">
+                <label>DNI</label>
+                <input type="text" class="form-control" id="clientDni" placeholder="Número de documento">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Nombre *</label>
+                    <input type="text" class="form-control" id="clientNombre" required>
+                </div>
+                <div class="form-group">
+                    <label>Apellido *</label>
+                    <input type="text" class="form-control" id="clientApellido" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <input type="text" class="form-control" id="clientTelefono">
+                </div>
+                <div class="form-group">
+                    <label>Empresa</label>
+                    <input type="text" class="form-control" id="clientEmpresa">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Dirección</label>
+                <input type="text" class="form-control" id="clientDireccion">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Hospedaje Desde</label>
+                    <input type="date" class="form-control" id="clientDesde">
+                </div>
+                <div class="form-group">
+                    <label>Hospedaje Hasta</label>
+                    <input type="date" class="form-control" id="clientHasta">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Asignar Habitación</label>
+                <select class="form-control" id="clientHabitacion">
+                    <option value="">— Sin asignar —</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal()">Cancelar</button>
+                <button type="submit" class="btn btn-primary" id="saveBtn">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal: Client History -->
+<div class="modal-overlay" id="historyModal">
+    <div class="modal" style="max-width:700px;">
+        <div class="modal-header">
+            <h2 id="historyTitle">Historial de Estadías</h2>
+            <button class="modal-close" onclick="closeHistoryModal()">&times;</button>
+        </div>
+        <div id="historyBody" style="padding:20px;">
+            Cargando...
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/clientes.js"></script>
+{% endblock %}

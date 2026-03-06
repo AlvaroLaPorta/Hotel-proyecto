@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Hotel Karim — Habitaciones{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header"
+        style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+        <div>
+            <h1>🏠 Habitaciones</h1>
+            <p>Plano interactivo del hotel — Haz clic en una habitación para gestionar</p>
+        </div>
+        <div style="display:flex;gap:10px;">
+            <button class="btn btn-outline" onclick="openRoomEditor()">✏️ Modificar Habitaciones</button>
+            <button class="btn btn-danger" onclick="resetAllRooms()">🔄 Reiniciar Todas</button>
+        </div>
+    </div>
+
+    <!-- Floor Tabs -->
+    <div class="floor-tabs">
+        <button class="floor-tab active" data-piso="1" onclick="switchFloor(1)">Piso 1</button>
+        <button class="floor-tab" data-piso="2" onclick="switchFloor(2)">Piso 2</button>
+    </div>
+
+    <!-- Floor plan -->
+    <div class="floor-plan-container">
+        <div class="floor-plan">
+            <div class="rooms-grid">
+                <div class="room-row" id="topRow"></div>
+                <div class="corridor">
+                    <span class="corridor-label">Corredor · Pasillo</span>
+                </div>
+                <div class="room-row" id="bottomRow"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Room action -->
+<div class="modal-overlay" id="roomModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h2 id="roomModalTitle">Habitación</h2>
+            <button class="modal-close" onclick="closeRoomModal()">&times;</button>
+        </div>
+        <div id="roomModalBody"></div>
+    </div>
+</div>
+
+<!-- Modal: Room Editor -->
+<div class="modal-overlay" id="roomEditorModal">
+    <div class="modal" style="max-width:750px;">
+        <div class="modal-header">
+            <h2>✏️ Modificar Habitaciones</h2>
+            <button class="modal-close" onclick="closeRoomEditor()">&times;</button>
+        </div>
+        <div id="roomEditorBody" style="padding:20px;">
+            Cargando...
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/habitaciones.js"></script>
+{% endblock %}
