@@ -192,6 +192,11 @@ function openRoomModal(room) {
     }
 
     document.getElementById('roomModal').classList.add('active');
+    // Ensure DNI input is focusable after DOM update
+    setTimeout(() => {
+        const dniInput = document.getElementById('ciDni');
+        if (dniInput) dniInput.focus();
+    }, 100);
 }
 
 function buildCheckinForm(habId) {
@@ -263,8 +268,10 @@ function dniLookupDebounce() {
 }
 
 async function dniLookup() {
-    const dni = document.getElementById('ciDni').value.trim();
+    const dniEl = document.getElementById('ciDni');
     const status = document.getElementById('dniStatus');
+    if (!dniEl || !status) return;
+    const dni = dniEl.value.trim();
     if (!dni || dni.length < 3) { status.textContent = ''; return; }
 
     try {
@@ -272,11 +279,12 @@ async function dniLookup() {
         const data = await res.json();
         if (data.found) {
             const c = data.cliente;
-            document.getElementById('ciNombre').value = c.nombre;
-            document.getElementById('ciApellido').value = c.apellido;
-            document.getElementById('ciTelefono').value = c.telefono;
-            document.getElementById('ciEmpresa').value = c.empresa;
-            document.getElementById('ciDireccion').value = c.direccion || '';
+            const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.value = val; };
+            setVal('ciNombre', c.nombre);
+            setVal('ciApellido', c.apellido);
+            setVal('ciTelefono', c.telefono);
+            setVal('ciEmpresa', c.empresa);
+            setVal('ciDireccion', c.direccion || '');
             status.textContent = `✅ Cliente encontrado: ${c.nombre} ${c.apellido}`;
             status.style.color = 'var(--green)';
         } else {
@@ -297,6 +305,11 @@ function addGuestForm(habId) {
         <p style="color:var(--text-secondary);margin-bottom:16px;">Agregar huésped adicional:</p>
         ${buildCheckinForm(habId)}
     `;
+    // Ensure DNI input is focusable after DOM update
+    setTimeout(() => {
+        const dniInput = document.getElementById('ciDni');
+        if (dniInput) dniInput.focus();
+    }, 100);
 }
 
 
@@ -496,7 +509,15 @@ async function deleteGuest(clientId) {
 
 
 async function resetAllRooms() {
-    if (!confirm('⚠️ ¿Reiniciar TODAS las habitaciones?\nSe hará check-out de todos los huéspedes.')) return;
+    document.getElementById('confirmResetModal').classList.add('active');
+}
+
+function closeConfirmReset() {
+    document.getElementById('confirmResetModal').classList.remove('active');
+}
+
+async function confirmResetAll() {
+    closeConfirmReset();
     try {
         const res = await fetch('/api/reset-all', { method: 'POST' });
         if (res.ok) {

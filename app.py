@@ -89,6 +89,7 @@ def api_get_clientes():
     nombre = request.args.get('nombre', '').strip()
     empresa = request.args.get('empresa', '').strip()
     telefono = request.args.get('telefono', '').strip()
+    dni = request.args.get('dni', '').strip()
 
     query = Cliente.query
 
@@ -101,6 +102,8 @@ def api_get_clientes():
         query = query.filter(Cliente.empresa.ilike(f'%{empresa}%'))
     if telefono:
         query = query.filter(Cliente.telefono.ilike(f'%{telefono}%'))
+    if dni:
+        query = query.filter(Cliente.dni.ilike(f'%{dni}%'))
 
     query = query.order_by(Cliente.created_at.desc())
     total = query.count()

@@ -1,5 +1,6 @@
 """
 Database configuration — SQLAlchemy + SQLite
+Stores DB in %APPDATA%/Hotel Karim/BASE DE DATOS - NO TOCAR/ when packaged.
 """
 import os
 import sys
@@ -7,16 +8,24 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-# When running as a PyInstaller bundle, store DB next to the exe
-if getattr(sys, 'frozen', False):
-    _BASE_DIR = os.path.dirname(sys.executable)
-else:
-    _BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+def _get_db_dir():
+    """Return the directory where hotel.db should live."""
+    if getattr(sys, 'frozen', False):
+        # Packaged app: use Windows AppData
+        appdata = os.environ.get('APPDATA', os.path.expanduser('~'))
+        db_dir = os.path.join(appdata, 'Hotel Karim', 'BASE DE DATOS - NO TOCAR')
+    else:
+        # Development: next to project files
+        db_dir = os.path.dirname(os.path.abspath(__file__))
+    os.makedirs(db_dir, exist_ok=True)
+    return db_dir
 
 
 def init_db(app):
     """Initialize the database with the Flask app."""
-    db_path = os.path.join(_BASE_DIR, 'hotel.db')
+    db_dir = _get_db_dir()
+    db_path = os.path.join(db_dir, 'hotel.db')
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)

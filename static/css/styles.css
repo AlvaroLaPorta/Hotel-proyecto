@@ -59,7 +59,7 @@
 }
 
 [data-font-size="large"] {
-    --font-size-base: 16px;
+    --font-size-base: 17px;
 }
 
 /* ── Reset ───────────────────────────────────────────────── */
@@ -69,9 +69,13 @@
     box-sizing: border-box;
 }
 
+html {
+    font-size: var(--font-size-base);
+}
+
 body {
     font-family: var(--font);
-    font-size: var(--font-size-base);
+    font-size: 1rem;
     background: var(--bg-primary);
     color: var(--text-primary);
     min-height: 100vh;
@@ -126,7 +130,7 @@ a:hover {
     display: flex;
     align-items: center;
     gap: 12px;
-    font-size: 18px;
+    font-size: 1.29rem;
     font-weight: 700;
     color: var(--text-primary);
     text-decoration: none;
@@ -151,7 +155,7 @@ a:hover {
 .navbar-links a {
     padding: 8px 18px;
     border-radius: 8px;
-    font-size: 13px;
+    font-size: 0.93rem;
     font-weight: 500;
     color: var(--text-secondary);
     transition: all 0.2s;
@@ -194,7 +198,7 @@ a:hover {
     border-radius: var(--radius-sm);
     border: none;
     font-family: var(--font);
-    font-size: 13px;
+    font-size: 0.93rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
@@ -256,7 +260,7 @@ a:hover {
 
 .btn-sm {
     padding: 6px 12px;
-    font-size: 12px;
+    font-size: 0.86rem;
 }
 
 /* ── Cards ───────────────────────────────────────────────── */
@@ -295,7 +299,7 @@ a:hover {
     background: var(--bg-input);
     color: var(--text-primary);
     font-family: var(--font);
-    font-size: 13px;
+    font-size: 0.93rem;
     transition: border-color 0.2s;
     outline: none;
 }
@@ -337,7 +341,7 @@ thead th {
 
 tbody td {
     padding: 12px 16px;
-    font-size: 13px;
+    font-size: 0.93rem;
     border-bottom: 1px solid var(--border-color);
     vertical-align: middle;
 }
@@ -403,7 +407,7 @@ tbody tr:last-child td {
 }
 
 .modal-header h2 {
-    font-size: 18px;
+    font-size: 1.29rem;
     font-weight: 700;
 }
 
@@ -535,10 +539,7 @@ tbody tr:last-child td {
 .hero h1 {
     font-size: 48px;
     font-weight: 800;
-    background: linear-gradient(135deg, var(--gold), #e8c472);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--gold);
     letter-spacing: -1px;
 }
 

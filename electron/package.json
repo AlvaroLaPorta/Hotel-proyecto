@@ -15,9 +15,10 @@
     "productName": "Hotel Karim",
     "copyright": "Copyright © 2026 Hotel Karim",
     "win": {
+      "icon": "build/icon.ico",
       "target": [
         {
-          "target": "portable",
+          "target": "nsis",
           "arch": [
             "x64"
           ]
@@ -25,8 +26,13 @@
       ],
       "signAndEditExecutable": false
     },
-    "portable": {
-      "artifactName": "Hotel-Karim-${version}.exe"
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false,
+      "artifactName": "setup_HotelKarim.exe",
+      "shortcutName": "Hotel Karim",
+      "uninstallDisplayName": "Hotel Karim"
     },
     "files": [
       "main.js"

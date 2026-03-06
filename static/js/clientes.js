@@ -14,11 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
 async function loadClientes(page = 1) {
     currentPage = page;
     const nombre = document.getElementById('filterNombre').value;
+    const dni = document.getElementById('filterDni').value;
     const empresa = document.getElementById('filterEmpresa').value;
     const telefono = document.getElementById('filterTelefono').value;
 
     const params = new URLSearchParams({ page, per_page: 10 });
     if (nombre) params.set('nombre', nombre);
+    if (dni) params.set('dni', dni);
     if (empresa) params.set('empresa', empresa);
     if (telefono) params.set('telefono', telefono);
 
@@ -86,6 +88,7 @@ function renderPagination(page, pages, total) {
 
 function clearFilters() {
     document.getElementById('filterNombre').value = '';
+    document.getElementById('filterDni').value = '';
     document.getElementById('filterEmpresa').value = '';
     document.getElementById('filterTelefono').value = '';
     loadClientes();
