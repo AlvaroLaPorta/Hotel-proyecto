@@ -27,9 +27,11 @@
       "signAndEditExecutable": false
     },
     "nsis": {
-      "oneClick": true,
+      "oneClick": false,
       "perMachine": false,
       "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut": "always",
+      "createStartMenuShortcut": true,
       "artifactName": "setup_HotelKarim.exe",
       "shortcutName": "Hotel Karim",
       "uninstallDisplayName": "Hotel Karim"

@@ -493,8 +493,22 @@ async function removeGuest(clientId) {
 }
 
 
-async function deleteGuest(clientId) {
-    if (!confirm('⚠️ ¿Eliminar este cliente permanentemente de la base de datos?')) return;
+let pendingDeleteGuestId = null;
+
+function deleteGuest(clientId) {
+    pendingDeleteGuestId = clientId;
+    document.getElementById('deleteGuestConfirmModal').classList.add('active');
+}
+
+function closeDeleteGuestConfirm() {
+    document.getElementById('deleteGuestConfirmModal').classList.remove('active');
+    pendingDeleteGuestId = null;
+}
+
+async function confirmDeleteGuest() {
+    if (!pendingDeleteGuestId) return;
+    const clientId = pendingDeleteGuestId;
+    closeDeleteGuestConfirm();
     try {
         const res = await fetch(`/api/clientes/${clientId}`, { method: 'DELETE' });
         if (res.ok) {

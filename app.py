@@ -7,6 +7,7 @@ import os
 from datetime import datetime, date
 
 from flask import Flask, render_template, request, jsonify
+from sqlalchemy.exc import IntegrityError
 
 sys.path.insert(0, os.path.dirname(__file__))
 from database import db, init_db
@@ -206,7 +207,7 @@ def api_create_cliente():
         hospedaje_desde=desde,
         hospedaje_hasta=hasta,
         habitacion_id=hab_id,
-        activo=True if hab_id else data.get('activo', True),
+        activo=True if hab_id else False,
     )
 
     if hab_id:
@@ -214,8 +215,12 @@ def api_create_cliente():
         if hab:
             hab.disponible = False
 
-    db.session.add(cliente)
-    db.session.commit()
+    try:
+        db.session.add(cliente)
+        db.session.commit()
+    except IntegrityError:
+        db.session.rollback()
+        return jsonify({'error': 'Ya existe un cliente con ese DNI'}), 409
     return jsonify(cliente.to_dict()), 201
 
 
