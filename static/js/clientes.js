@@ -14,11 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
 async function loadClientes(page = 1) {
     currentPage = page;
     const nombre = document.getElementById('filterNombre').value;
+    const dni = document.getElementById('filterDni').value;
     const empresa = document.getElementById('filterEmpresa').value;
     const telefono = document.getElementById('filterTelefono').value;
 
     const params = new URLSearchParams({ page, per_page: 10 });
     if (nombre) params.set('nombre', nombre);
+    if (dni) params.set('dni', dni);
     if (empresa) params.set('empresa', empresa);
     if (telefono) params.set('telefono', telefono);
 
@@ -86,6 +88,7 @@ function renderPagination(page, pages, total) {
 
 function clearFilters() {
     document.getElementById('filterNombre').value = '';
+    document.getElementById('filterDni').value = '';
     document.getElementById('filterEmpresa').value = '';
     document.getElementById('filterTelefono').value = '';
     loadClientes();
@@ -155,6 +158,11 @@ function closeModal() {
 
 async function saveClient(e) {
     e.preventDefault();
+    const saveBtn = document.getElementById('saveBtn');
+    if (saveBtn.disabled) return;
+    saveBtn.disabled = true;
+    saveBtn.textContent = 'Guardando...';
+
     const id = document.getElementById('clientId').value;
     const habSelect = document.getElementById('clientHabitacion').value;
 
@@ -195,12 +203,29 @@ async function saveClient(e) {
         }
     } catch (e) {
         showToast('Error de conexión', 'error');
+    } finally {
+        saveBtn.disabled = false;
+        saveBtn.textContent = 'Guardar';
     }
 }
 
 
-async function deleteClient(id) {
-    if (!confirm('⚠️ ¿Eliminar este cliente permanentemente?')) return;
+let pendingDeleteClientId = null;
+
+function deleteClient(id) {
+    pendingDeleteClientId = id;
+    document.getElementById('deleteConfirmModal').classList.add('active');
+}
+
+function closeDeleteConfirm() {
+    document.getElementById('deleteConfirmModal').classList.remove('active');
+    pendingDeleteClientId = null;
+}
+
+async function confirmDeleteClient() {
+    if (!pendingDeleteClientId) return;
+    const id = pendingDeleteClientId;
+    closeDeleteConfirm();
     try {
         const res = await fetch(`/api/clientes/${id}`, { method: 'DELETE' });
         if (res.ok) {

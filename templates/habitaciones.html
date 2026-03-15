@@ -46,6 +46,23 @@
     </div>
 </div>
 
+<!-- Modal: Confirm Reset All -->
+<div class="modal-overlay" id="confirmResetModal">
+    <div class="modal" style="max-width:440px;text-align:center;">
+        <div style="font-size:56px;margin-bottom:12px;">⚠️</div>
+        <h2 style="font-size:20px;font-weight:700;margin-bottom:10px;">¿Reiniciar TODAS las habitaciones?</h2>
+        <p style="color:var(--text-secondary);font-size:14px;margin-bottom:24px;line-height:1.6;">
+            Se realizará el <strong style="color:var(--red);">check-out de todos los huéspedes</strong> en todas las
+            habitaciones.
+            <br>Esta acción no se puede deshacer.
+        </p>
+        <div class="modal-footer" style="justify-content:center;border-top:none;margin-top:0;padding-top:0;">
+            <button class="btn btn-outline" onclick="closeConfirmReset()">Cancelar</button>
+            <button class="btn btn-danger" onclick="confirmResetAll()">🔄 Sí, Reiniciar Todas</button>
+        </div>
+    </div>
+</div>
+
 <!-- Modal: Room Editor -->
 <div class="modal-overlay" id="roomEditorModal">
     <div class="modal" style="max-width:750px;">
@@ -55,6 +72,21 @@
         </div>
         <div id="roomEditorBody" style="padding:20px;">
             Cargando...
+        </div>
+    </div>
+</div>
+<!-- Modal: Delete Guest Confirmation -->
+<div class="modal-overlay" id="deleteGuestConfirmModal">
+    <div class="modal" style="max-width:440px;text-align:center;">
+        <div style="font-size:56px;margin-bottom:12px;">⚠️</div>
+        <h2 style="font-size:20px;font-weight:700;margin-bottom:10px;">¿Eliminar este huésped?</h2>
+        <p style="color:var(--text-secondary);font-size:14px;margin-bottom:24px;line-height:1.6;">
+            Se eliminará el huésped <strong style="color:var(--red);">permanentemente</strong> de la base de datos.
+            <br>Esta acción no se puede deshacer.
+        </p>
+        <div class="modal-footer" style="justify-content:center;border-top:none;margin-top:0;padding-top:0;">
+            <button class="btn btn-outline" onclick="closeDeleteGuestConfirm()">Cancelar</button>
+            <button class="btn btn-danger" onclick="confirmDeleteGuest()">🗑️ Sí, Eliminar</button>
         </div>
     </div>
 </div>

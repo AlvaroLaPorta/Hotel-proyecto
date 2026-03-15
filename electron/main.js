@@ -15,7 +15,7 @@ const PORT = 5000;
 function getFlaskPath() {
     if (app.isPackaged) {
         // In packaged app, the exe is in resources/flask-server/
-        return path.join(process.resourcesPath, 'flask-server', 'hotel-karim.exe');
+        return path.join(process.resourcesPath, 'flask-server', 'hotel-karim', 'hotel-karim.exe');
     } else {
         // In development, use Python directly
         return null;
@@ -109,7 +109,7 @@ function createWindow() {
         minWidth: 900,
         minHeight: 600,
         title: 'Hotel Karim',
-        icon: null,
+        icon: path.join(__dirname, 'build', 'icon.ico'),
         autoHideMenuBar: true,
         webPreferences: {
             nodeIntegration: false,
